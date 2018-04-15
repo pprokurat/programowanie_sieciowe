@@ -51,7 +51,7 @@ namespace Lab1
 
                 Console.WriteLine();
 
-                //przełożenie tekst z ASCII na kod binarny
+                //przełożenie tekstu z ASCII na kod binarny
                 String text_bin = null;
                 for (i = 0; i < text_asc.Length; i++)
                 {
@@ -90,8 +90,82 @@ namespace Lab1
                     }
                     //text_bin += " ";
                                         
-                }                
+                }          
+                
                 Console.WriteLine(text_bin);
+
+                //podział kodu binarnego na grupy 24-bitowe
+                int arraySize24 = (text_bin.Length / 24) + 1;
+                String[] text24groups = new String[arraySize24];
+                i = 0;
+                foreach (char c in text_bin)
+                {
+                    text24groups[i] += c;
+                    if (text24groups[i].Length%24 == 0 && text24groups[i].Length != 0)
+                    {
+                        i++;
+                    }                    
+                }
+
+                //wypisanie na konsoli tablicy grup 24-bitowych
+                for (i = 0; i < text24groups.Length; i++)
+                {
+                    Console.Write(text24groups[i] + " ");
+                }
+
+                Console.WriteLine();
+
+                //podział kodu binarnego na grupy 6-bitowe
+                int arraySize6 = (text_bin.Length / 6) + 1;
+                String[] text6groups = new String[arraySize6];
+                i = 0;
+                foreach (char c in text_bin)
+                {
+                    text6groups[i] += c;                    
+
+                    if (text6groups[i].Length % 6 == 0 && text6groups[i].Length != 0)
+                    {
+                        i++;
+                    }
+                }
+
+                //wypisanie na konsoli tablicy grup 6-bitowych, dodanie paddingu
+                for (i = 0; i < text6groups.Length; i++)
+                {
+                    if (text6groups[i].Length == 1)
+                    {
+                        text6groups[i] += "00000";
+                    }
+                    else if (text6groups[i].Length == 2)
+                    {
+                        text6groups[i] += "0000";
+                    }
+                    else if (text6groups[i].Length == 3)
+                    {
+                        text6groups[i] += "000";
+                    }
+                    else if (text6groups[i].Length == 4)
+                    {
+                        text6groups[i] += "00";
+                    }
+                    else if (text6groups[i].Length == 5)
+                    {
+                        text6groups[i] += "0";
+                    }
+
+                    Console.Write(text6groups[i] + " ");
+                }
+
+                Console.WriteLine();
+
+                //zakodowanie tekstu w Base64
+                String[] b64output = new String[arraySize6];
+                for (i=0; i <= arraySize6; i++)
+                {
+                    b64output[i]=
+                }
+
+
 
             }
             catch (Exception e)
