@@ -13,6 +13,7 @@ namespace Lab1
     public partial class Form1 : Form
     {
         Coder coder = new Coder();
+        Decoder decoder = new Decoder();
 
         public Form1()
         {
@@ -23,6 +24,8 @@ namespace Lab1
         {
             coder.CodeText();
             //coder.ReadBmp();
+
+            decoder.DecodeText();
         }
     }
 }
