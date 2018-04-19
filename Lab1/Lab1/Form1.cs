@@ -12,8 +12,9 @@ namespace Lab1
 {
     public partial class Form1 : Form
     {
-        Coder coder = new Coder();
-        Decoder decoder = new Decoder();
+        TextCoder textCoder = new TextCoder();
+        ImageCoder imageCoder = new ImageCoder();
+        TextDecoder decoder = new TextDecoder();
 
         public Form1()
         {
@@ -22,10 +23,18 @@ namespace Lab1
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            coder.CodeText();
-            //coder.ReadBmp();
+            textCoder.CodeText();
+            inputTextBox.Text = textCoder.text;
+            outputB64textBox.Text = textCoder.base64output;
 
             decoder.DecodeText();
+            inputB64textBox.Text = decoder.base64input;
+            outputTextBox.Text = decoder.text_output;
+
+            imageCoder.CodeImage();
+            pictureBox1.Image = imageCoder.image;
+            imageOutputB64textBox.Text = imageCoder.base64outputImg;
+
         }
     }
 }

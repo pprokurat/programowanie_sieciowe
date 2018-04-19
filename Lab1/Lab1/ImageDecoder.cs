@@ -8,11 +8,14 @@ using System.Drawing;
 
 namespace Lab1
 {
-    class Decoder
+    class ImageDecoder
     {
-        public Decoder()
+        public String base64input = null;
+        public String text_output = null;
+
+        public ImageDecoder()
         {
-            
+
         }
 
         public void DecodeText()
@@ -20,17 +23,18 @@ namespace Lab1
             try
             {
                 //wczytanie pliku b64
-                String base64input = File.ReadAllText("tekst.b64");
+
+                base64input = File.ReadAllText("tekst.b64");
                 Console.WriteLine(base64input);
 
                 //odczytanie łańcucha base64
                 int arraySize6 = base64input.Length;
                 Byte[] byteArray = new Byte[arraySize6];
-                
+
                 int i = 0;
                 foreach (char c in base64input)
                 {
-                    bool result = c.Equals('A');                    
+                    bool result = c.Equals('A');
                     if (result == true)
                     {
                         byteArray[i] = 0;
@@ -359,7 +363,7 @@ namespace Lab1
                     i++;
                 }
 
-                
+
                 //zamiana na grupy 6-bitowe
                 String text6groups = null;
                 for (i = 0; i < arraySize6; i++)
@@ -421,7 +425,7 @@ namespace Lab1
                     else if (byteArray[i] <= 1)
                     {
                         text_bin += "00000" + Convert.ToString(byteArray[i], 2);
-                    }                    
+                    }
                 }
 
                 Console.WriteLine(text_bin);
@@ -431,12 +435,12 @@ namespace Lab1
                 String[] bin_array = new String[arraySize8];
                 i = 0;
                 foreach (char c in text_bin)
-                {                    
+                {
                     bin_array[i] += c;
 
                     if (bin_array[i].Length % 8 == 0 && bin_array[i].Length != 0)
                     {
-                        i++;                        
+                        i++;
                     }
                 }
 
@@ -485,7 +489,7 @@ namespace Lab1
                     asc_numbers[i] = Convert.ToByte(bin_array[i], 2);
                 }
 
-                String asc_numbers_str = null;            
+                String asc_numbers_str = null;
                 for (i = 0; i < arraySize8; i++)
                 {
                     asc_numbers_str += asc_numbers[i] + " ";
@@ -512,11 +516,12 @@ namespace Lab1
 
                 Console.WriteLine(asc_output_str);
 
-                String text_output = null;
+                //konwersja na tekst i wypisanie
+                text_output = null;
                 for (i = 0; i < arraySize8; i++)
                 {
                     Int32 c_int = Convert.ToInt32(asc_output[i]);
-                    char c = (char) c_int;
+                    char c = (char)c_int;
                     text_output += c.ToString();
                 }
 
