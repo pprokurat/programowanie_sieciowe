@@ -24,7 +24,7 @@ namespace Lab1
             {
                 //odczytanie pliku tekstowego
 
-                text = File.ReadAllText("TestFile2.txt");
+                text = File.ReadAllText("TestFile.txt");
                 Console.WriteLine(text);
 
                 //zakodowanie tekstu w ASCII
@@ -164,21 +164,30 @@ namespace Lab1
                 Console.WriteLine();                
 
                 //zakodowanie tekstu w Base64
+
                 Byte[] byteArray = new Byte[arraySize6];
                 for (i = 0; i < arraySize6; i++)
                 {
                     byteArray[i] = Convert.ToByte(text6groups[i],2);
 
-                    if (i == arraySize6 - 1 && (padSize > 6 && padSize <= 12 && padSize != 0))
-                    {
-                        byteArray[i] = 64;
-                    }
-
-                    if (i == arraySize6 - 2 && padSize <= 6 && padSize != 0)
-                    {
-                        byteArray[i] = 64;
-                    }                    
+                    
                 }
+
+                if (text6groups[arraySize6 - 1] == "000000")
+                //if (i == arraySize6 - 1 && padSize > 6 && padSize <= 12)
+                {
+                    byteArray[arraySize6 - 1] = 64;
+                }
+
+                if (text6groups[arraySize6 - 2] == "000000")
+                {
+                    byteArray[arraySize6 - 2] = 64;
+                }
+
+                //if (i == arraySize6 - 2 && padSize > 0 && padSize <= 6)
+                //{
+                //    byteArray[i] = 64;
+                //}
                 //for (i = 0; i < arraySize6; i++)
                 //{
                 //    Console.WriteLine(byteArray[i] + " ");
@@ -457,7 +466,6 @@ namespace Lab1
             }
             catch (Exception e)
             {
-                Console.WriteLine("The file could not be read:");
                 Console.WriteLine(e.Message);
             }
         }

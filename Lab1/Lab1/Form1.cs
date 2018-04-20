@@ -14,7 +14,7 @@ namespace Lab1
     {
         TextCoder textCoder = new TextCoder();
         ImageCoder imageCoder = new ImageCoder();
-        TextDecoder decoder = new TextDecoder();
+        TextDecoder textDecoder = new TextDecoder();
 
         public Form1()
         {
@@ -27,9 +27,9 @@ namespace Lab1
             inputTextBox.Text = textCoder.text;
             outputB64textBox.Text = textCoder.base64output;
 
-            decoder.DecodeText();
-            inputB64textBox.Text = decoder.base64input;
-            outputTextBox.Text = decoder.text_output;
+            textDecoder.DecodeText();
+            inputB64textBox.Text = textDecoder.base64input;
+            outputTextBox.Text = textDecoder.text_output;
 
             imageCoder.CodeImage();
             pictureBox1.Image = imageCoder.image;
