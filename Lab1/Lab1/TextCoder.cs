@@ -24,7 +24,7 @@ namespace Lab1
             {
                 //odczytanie pliku tekstowego
 
-                text = File.ReadAllText("TestFile.txt");
+                text = File.ReadAllText("TestFile2.txt");
                 Console.WriteLine(text);
 
                 //zakodowanie tekstu w ASCII
