@@ -27,15 +27,15 @@ namespace Lab2_tmp
         Socket socket;
         Thread pop3Thread;
 
-        public bool started;
+        public bool started;        
 
-        public struct MailInfo
+        public class MailInfo
         {
             public int mailID;
-            public string title;
+            public string subject;
         }
 
-        List<MailInfo> mailInfo;
+        List<MailInfo> mailInfo = new List<MailInfo>();
 
         public void Check()
         {
@@ -69,6 +69,7 @@ namespace Lab2_tmp
             {
                 GetMailList();
                 Thread.Sleep(time * 1000);
+                Console.WriteLine("\n");
             }
         }
 
@@ -83,19 +84,49 @@ namespace Lab2_tmp
             Console.WriteLine("buffer: "+buffer);
 
             string[] lines = buffer.Split('\n');
-            int counter=0;
+
+            int counter = 0;                                   
+
             foreach (string line in lines)
             {
                 string[] words = line.Split(' ');
                 if (words[0]!="+OK" && words[0]!="+ERR" && words.Length > 1)
                 {
-                    Console.WriteLine(words[0]);
+                    //Console.WriteLine(words[0]);
                     counter++;
-                }
-
-                if (counter>0)
-                NewMessage(counter);
+                    NewMessage(counter);
+                }                
             }
+
+            int messageCount = mailInfo.Count;
+            for (int i = 0; i < messageCount; ++i)
+            {
+                MailInfo mailInf = mailInfo[i];
+                Console.WriteLine("Id: " + mailInf.mailID +
+                    "\nTemat: " + mailInf.subject);
+            }
+
+            mailInfo.Clear();
+
+            //try
+            //{
+            //    foreach (MailInfo mailInf in mailInfo)
+            //    {
+            //        mailInfo.Remove(mailInf);
+            //    }
+            //}
+            //catch
+            //{
+            //    Console.WriteLine("error");
+            //}
+
+            //Console.WriteLine("\n\n");
+
+            //if (counter > messageCount)
+            //    Console.WriteLine("Nowa wiadomosc!\n");
+
+            //messageCount = counter;
+            //Console.WriteLine("Ilosc wiadomosci: "+messageCount);
         }
 
         private void NewSocket()
@@ -128,22 +159,12 @@ namespace Lab2_tmp
             {
                 if (lines[i].Contains("Subject"))
                 {
-                    Console.WriteLine(lines[i]);
+                    mailInfo.Add(new MailInfo { mailID = id, subject = lines[i] });
+                    //Console.WriteLine(lines[i]);
                     break;
                 }                    
-            }
-                           
-                      
-            //MailInfo newMessage = new MailInfo();
-            //newMessage.mailID = id;
-            //newMessage.title = values[1];
-
-            //mailInfo.Add(newMessage);
-
-            //Console.WriteLine("You received a new message: '" + newMessage.title + "'");
-            //_form.AddMessageToCounter();
-
-
+            }                          
+            
         }
 
 

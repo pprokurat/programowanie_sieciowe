@@ -15,7 +15,6 @@ namespace Lab2_tmp
 
             Pop3Client client = new Pop3Client();
             client.Check();
-            
 
 
             Console.ReadLine();
