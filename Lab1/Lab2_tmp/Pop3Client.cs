@@ -37,6 +37,9 @@ namespace Lab2_tmp
 
         List<MailInfo> mailInfo = new List<MailInfo>();
 
+        int mailCount = 0;
+        int totalMailCount = 0;
+
         public void Check()
         {
             Configuration();
@@ -104,7 +107,16 @@ namespace Lab2_tmp
                 MailInfo mailInf = mailInfo[i];
                 Console.WriteLine("Id: " + mailInf.mailID +
                     "\nTemat: " + mailInf.subject);
+
+                mailCount = i;
             }
+
+            if (mailCount > totalMailCount)
+            {
+                Console.WriteLine("Nowa wiadomosc!\n");
+                totalMailCount = mailCount;
+            }
+                
 
             mailInfo.Clear();
 
@@ -187,6 +199,17 @@ namespace Lab2_tmp
 
             return currentBytesString;
         }      
-                
+               
+        public void Exit()
+        {
+            if (pop3Thread != null)
+            {
+
+                pop3Thread.Abort();
+
+                if (socket != null)
+                    socket.Close();
+            }
+        }
     }
 }
